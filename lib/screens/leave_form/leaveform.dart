@@ -1,127 +1,101 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:loginpage/screens/profilescreen/profilescreen.dart';
+import 'package:flutter/painting.dart';
 
-class LeaveForm extends StatefulWidget {
-  const LeaveForm({Key? key}) : super(key: key);
+class LeavePage extends StatefulWidget {
+  const LeavePage({Key? key}) : super(key: key);
 
   @override
-  _LeaveFormState createState() => _LeaveFormState();
+  _LeavePageState createState() => _LeavePageState();
 }
 
-class _LeaveFormState extends State<LeaveForm> {
+class _LeavePageState extends State<LeavePage> {
+  final items = ["Half Day or Full Day", "Medical or Casual"];
+  String? valueChoose;
+
   @override
   Widget build(BuildContext context) {
-    return Container(
-      width: MediaQuery.of(context).size.width,
-      height: MediaQuery.of(context).size.height,
-      color: Colors.redAccent,
-      child: Center(
-        child: Container(
-          margin: EdgeInsets.only(left: 20, right: 20, top: 150, bottom: 150),
-
-          color: Colors.white,
-          child: ListView(
-            children: <Widget>[
-              Column(
-                mainAxisAlignment: MainAxisAlignment.center,
-                crossAxisAlignment: CrossAxisAlignment.center,
-
-                children:<Widget>[
-                  SizedBox(
-                    height: 70,
-                  ),
-                  Container(
-                    width: 250.0,
-                    height: 50.0,
-                    child: FlatButton(
-
-                      onPressed: null,
-                      child: Text('Days', style: TextStyle(
-                        color: Colors.redAccent,
-                      ),
-                      ),
-                      textColor: Colors.white,
-                      shape: RoundedRectangleBorder(
-                          side: BorderSide(
-                              color: Colors.redAccent,
-                              width: 1,
-                              style: BorderStyle.solid
-                          ), borderRadius: BorderRadius.circular(50)),
-                    ),
-                  ),
-                  SizedBox(
-                    height: 20,
-                  ),
-                  Container(
-                    width: 250,
-                    height: 50,
-                    child: FlatButton(
-
-                      onPressed: null,
-                      child: Text('Reason', style: TextStyle(
-                        color: Colors.redAccent,
-                      ),
-                      ),
-                      textColor: Colors.white,
-                      shape: RoundedRectangleBorder(side: BorderSide(
-                          color: Colors.redAccent,
-                          width: 1,
-                          style: BorderStyle.solid
-                      ), borderRadius: BorderRadius.circular(50)),
-                    ),
-                  ),
-                  SizedBox(
-                    height: 20,
-                  ),
-                  Container(
-                    width: 250,
-                    height: 50,
-                    child: FlatButton(
-
-                      onPressed: null,
-                      child: Text('Submit', style: TextStyle(
-                        color: Colors.redAccent,
-                      ),
-                      ),
-                      textColor: Colors.white,
-                      shape: RoundedRectangleBorder(side: BorderSide(
-                          color: Colors.redAccent,
-                          width: 1,
-                          style: BorderStyle.solid
-                      ), borderRadius: BorderRadius.circular(50)),
-                    ),
-                  ),
-                  SizedBox(
-                    height: 20,
-                  ),
-                  Container(
-                    width: 250,
-                    height: 50,
-                    child: FlatButton(
-
-                      onPressed: (){
-                        Navigator.of(context).pushReplacement(
-                            MaterialPageRoute(builder: (context) => ProfileScreen()));
-
-                      },
-                      child: Text('Home', style: TextStyle(
-                        color: Colors.redAccent,
-                      ),
-                      ),
-                      textColor: Colors.white,
-                      shape: RoundedRectangleBorder(side: BorderSide(
-                          color: Colors.redAccent,
-                          width: 1,
-                          style: BorderStyle.solid
-                      ), borderRadius: BorderRadius.circular(50)),
-                    ),
-                  ),
-
-                ],
-
-              ),
-            ],
+    return Scaffold(
+      appBar: AppBar(
+        title: Text(
+          "Leave",
+          style: TextStyle(
+            fontSize: 24,
+            fontWeight: FontWeight.bold,
           ),
+        ),
+        centerTitle: true,
+      ),
+      body: Center(
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            Padding(
+              padding: EdgeInsets.all(16.0),
+              child: Container(
+                padding: EdgeInsets.only(left: 10, right: 10),
+                decoration: BoxDecoration(
+                  border: Border.all(color: Colors.blueAccent, width: 2),
+                  borderRadius: BorderRadius.circular(15),
+                ),
+                child: DropdownButton(
+                  isExpanded: true,
+                  icon: Icon(Icons.arrow_drop_down),
+                  underline: SizedBox(),
+                  iconSize: 36,
+                  hint: Text("Select Type of Leave"),
+                  value: valueChoose,
+                  onChanged: (newValue) {
+                    setState(() {
+                      valueChoose = newValue as String?;
+                    });
+                  },
+                  items: items.map((valueItem) {
+                    return DropdownMenuItem(
+                      value: valueItem,
+                      child: Text(valueItem),
+                    );
+                  }).toList(),
+                ),
+              ),
+            ),
+            Container(
+              margin: EdgeInsets.only(left: 15, right: 15),
+              padding: EdgeInsets.only(left: 10, right: 10),
+              decoration: BoxDecoration(
+                border: Border.all(color: Colors.blueAccent, width: 2),
+                borderRadius: BorderRadius.circular(15),
+              ),
+              child: TextFormField(
+                minLines: 2,
+                maxLines: 10,
+                keyboardType: TextInputType.multiline,
+                decoration: InputDecoration(
+                  hintText: "Type here your message",
+                  hintStyle: TextStyle(
+                    color: Colors.grey,
+                  ),
+                  // border: OutlineInputBorder(
+                  //   borderRadius: BorderRadius.all(Radius.circular(10)),
+                  //
+                  // ),
+                ),
+              ),
+            ),
+            SizedBox(
+              height: 20,
+            ),
+            ElevatedButton(
+              child: Text(
+                "SUBMIT",
+                style: TextStyle(
+                  fontSize: 20,
+                  fontWeight: FontWeight.bold,
+                ),
+              ),
+              onPressed: () {},
+            ),
+          ],
         ),
       ),
     );
