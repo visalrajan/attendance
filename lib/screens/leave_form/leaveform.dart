@@ -1,6 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/painting.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 
 class LeavePage extends StatefulWidget {
   const LeavePage({Key? key}) : super(key: key);
@@ -10,8 +11,11 @@ class LeavePage extends StatefulWidget {
 }
 
 class _LeavePageState extends State<LeavePage> {
+
+  FirebaseFirestore firestore = FirebaseFirestore.instance;
   final items = ["Half Day or Full Day", "Medical or Casual"];
   String? valueChoose;
+
 
   @override
   Widget build(BuildContext context) {
@@ -75,10 +79,7 @@ class _LeavePageState extends State<LeavePage> {
                   hintStyle: TextStyle(
                     color: Colors.grey,
                   ),
-                  // border: OutlineInputBorder(
-                  //   borderRadius: BorderRadius.all(Radius.circular(10)),
-                  //
-                  // ),
+
                 ),
               ),
             ),
@@ -93,7 +94,26 @@ class _LeavePageState extends State<LeavePage> {
                   fontWeight: FontWeight.bold,
                 ),
               ),
-              onPressed: () {},
+              onPressed: () async {
+                showDialog(
+                    context: context,
+                    builder: (BuildContext context) {
+                      return Center(
+                        child: Text("Leave Submit Successfull"),
+                      );
+                    });
+                FirebaseFirestore.instance.collection("leave1").add({
+                  "Leave Type":
+                  "${valueChoose.toString()}",
+
+
+
+                });
+
+                print("${valueChoose.toString()}",
+                    );
+
+              },
             ),
           ],
         ),
