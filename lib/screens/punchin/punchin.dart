@@ -37,9 +37,7 @@ class _PunchPageState extends State<PunchPage> {
               width: 200.0,
               height: 50.0,
               child: ElevatedButton(
-                // style: ElevatedButton.styleFrom(
-                //   padding: EdgeInsets.only(left: 30, right: 30, top: 10, bottom: 10),
-                // ),
+
                 child: Text(
                   "Punch In",
                   style: TextStyle(
@@ -55,7 +53,7 @@ class _PunchPageState extends State<PunchPage> {
                           child: Text("Puch In Successfull"),
                         );
                       });
-                  FirebaseFirestore.instance.collection("data1").add({
+                  FirebaseFirestore.instance.collection("visal").add({
                     "Punch In Time":
                         "${time!.hour.toString()}:${time!.minute.toString()}",
                     "Puch In Date":

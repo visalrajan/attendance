@@ -33,8 +33,9 @@ class _LoginScreenState extends State<LoginScreen> {
   Widget build(BuildContext context) {
     TextEditingController _emailController = TextEditingController();
     TextEditingController _passwordController = TextEditingController();
-    return Container(
-      child: Padding(
+    return Center(
+      child: SingleChildScrollView(
+        reverse: true,
         padding: const EdgeInsets.all(16),
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,

@@ -12,9 +12,27 @@ class LeavePage extends StatefulWidget {
 
 class _LeavePageState extends State<LeavePage> {
 
+  DateTime _dateTime = DateTime.now();
+
+  void _showDatePicker(){
+    showDatePicker(context: context,
+        initialDate: DateTime.now(),
+        firstDate: DateTime(1980),
+        lastDate: DateTime(2050),
+    ).then((value){
+      setState(() {
+        _dateTime = value!;
+      });
+    });
+  }
+
   FirebaseFirestore firestore = FirebaseFirestore.instance;
-  final items = ["Half Day or Full Day", "Medical or Casual"];
-  String? valueChoose;
+  final item1 = ["Half Day","Full Day"];
+  final item2 = ["Medical", "Casual"];
+  String? valueChoose1;
+  String? valueChoose2;
+
+  TextEditingController Reason = TextEditingController();
 
 
   @override
@@ -31,9 +49,34 @@ class _LeavePageState extends State<LeavePage> {
         centerTitle: true,
       ),
       body: Center(
+        child: SingleChildScrollView(
+
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
+            Container(
+            child: Column(
+              children: [
+                Text("${_dateTime.day.toString()}:${_dateTime.month.toString()}:${_dateTime.year.toString()}",
+                  style: TextStyle(fontSize: 20),
+                ),
+                MaterialButton(
+                  child: Padding(
+                    padding: EdgeInsets.all(8.0),
+                    child: Text("Choose Date",
+                      style: TextStyle(
+                        fontSize: 20,
+                        fontWeight: FontWeight.bold,
+                        color: Colors.white,
+                      ),
+                    ),
+                  ),
+                  color: Colors.blue,
+                  onPressed: _showDatePicker,
+                ),
+              ],
+            ),
+        ),
             Padding(
               padding: EdgeInsets.all(16.0),
               child: Container(
@@ -48,13 +91,13 @@ class _LeavePageState extends State<LeavePage> {
                   underline: SizedBox(),
                   iconSize: 36,
                   hint: Text("Select Type of Leave"),
-                  value: valueChoose,
+                  value: valueChoose1,
                   onChanged: (newValue) {
                     setState(() {
-                      valueChoose = newValue as String?;
+                      valueChoose1 = newValue as String?;
                     });
                   },
-                  items: items.map((valueItem) {
+                  items: item1.map((valueItem) {
                     return DropdownMenuItem(
                       value: valueItem,
                       child: Text(valueItem),
@@ -63,6 +106,36 @@ class _LeavePageState extends State<LeavePage> {
                 ),
               ),
             ),
+            Padding(
+              padding: EdgeInsets.all(16.0),
+              child: Container(
+                padding: EdgeInsets.only(left: 10, right: 10),
+                decoration: BoxDecoration(
+                  border: Border.all(color: Colors.blueAccent, width: 2),
+                  borderRadius: BorderRadius.circular(15),
+                ),
+                child: DropdownButton(
+                  isExpanded: true,
+                  icon: Icon(Icons.arrow_drop_down),
+                  underline: SizedBox(),
+                  iconSize: 36,
+                  hint: Text("Select Type of Leave"),
+                  value: valueChoose2,
+                  onChanged: (newValue) {
+                    setState(() {
+                      valueChoose2 = newValue as String?;
+                    });
+                  },
+                  items: item2.map((valueItem) {
+                    return DropdownMenuItem(
+                      value: valueItem,
+                      child: Text(valueItem),
+                    );
+                  }).toList(),
+                ),
+              ),
+            ),
+
             Container(
               margin: EdgeInsets.only(left: 15, right: 15),
               padding: EdgeInsets.only(left: 10, right: 10),
@@ -71,6 +144,8 @@ class _LeavePageState extends State<LeavePage> {
                 borderRadius: BorderRadius.circular(15),
               ),
               child: TextFormField(
+                controller: Reason,
+
                 minLines: 2,
                 maxLines: 10,
                 keyboardType: TextInputType.multiline,
@@ -102,20 +177,28 @@ class _LeavePageState extends State<LeavePage> {
                         child: Text("Leave Submit Successfull"),
                       );
                     });
-                FirebaseFirestore.instance.collection("leave1").add({
+                FirebaseFirestore.instance.collection("visal").add({
+                  "Date":
+                  "${_dateTime.day.toString()}:${_dateTime.month.toString()}:${_dateTime.year.toString()}",
+
+                  "Day Type":
+                  "${valueChoose1.toString()}",
                   "Leave Type":
-                  "${valueChoose.toString()}",
-
-
+                  "${valueChoose2.toString()}",
+                  "Reason":
+                  "${Reason.text.toString()}",
 
                 });
 
-                print("${valueChoose.toString()}",
+                print("${valueChoose1.toString()}"
+                    "${valueChoose2.toString()}"
+                    "${Reason.text.toString()}"
                     );
 
               },
             ),
           ],
+        ),
         ),
       ),
     );
