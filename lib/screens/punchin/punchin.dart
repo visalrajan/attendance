@@ -53,10 +53,10 @@ class _PunchPageState extends State<PunchPage> {
                           child: Text("Puch In Successfull"),
                         );
                       });
-                  FirebaseFirestore.instance.collection("visal").add({
-                    "Punch In Time":
+                  FirebaseFirestore.instance.collection("attendance").add({
+                    "time":
                         "${time!.hour.toString()}:${time!.minute.toString()}",
-                    "Puch In Date":
+                    "date":
                         "${date!.day.toString()}:${date!.month.toString()}:${date!.year.toString()}"
                   });
 
@@ -88,10 +88,10 @@ class _PunchPageState extends State<PunchPage> {
                           child: Text("Puch Out Successfull"),
                         );
                       });
-                  FirebaseFirestore.instance.collection("data1").add({
-                    "Punch Out Time":
+                  FirebaseFirestore.instance.collection("attendance").add({
+                    "time":
                         "${time!.hour.toString()}:${time!.minute.toString()}",
-                    "Puch Out Date":
+                    "date":
                         "${date!.day.toString()}:${date!.month.toString()}:${date!.year.toString()}"
                   });
                   print("${time!.hour.toString()}:${time!.minute.toString()}"

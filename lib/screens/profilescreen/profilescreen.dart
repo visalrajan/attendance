@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-
 import 'package:loginpage/screens/leave_form/leaveform.dart';
 import 'package:loginpage/screens/punchin/punchin.dart';
 import 'package:loginpage/screens/task_page/taskpage.dart';
@@ -20,29 +19,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      // appBar: AppBar(
-      //   backgroundColor: Colors.deepPurpleAccent,
-      //   actions: <Widget>[
-      //     PopupMenuButton(
-      //         color: Colors.white70,
-      //         elevation: 20,
-      //         shape: OutlineInputBorder(
-      //           borderSide: BorderSide(
-      //             color: Colors.black,
-      //             width: 2,
-      //           ),
-      //         ),
-      //         itemBuilder: (context) => [
-      //               PopupMenuItem(
-      //                 child: Text("Logout"),
-      //                 onTap: (){
-      //
-      //                 },
-      //                 value: "logout",
-      //               ),
-      //             ]),
-      //   ],
-      // ),
+
       body: screens[currentIndex],
       bottomNavigationBar: BottomNavigationBar(
         backgroundColor: Colors.blueAccent,

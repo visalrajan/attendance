@@ -27,12 +27,14 @@ class _LeavePageState extends State<LeavePage> {
   }
 
   FirebaseFirestore firestore = FirebaseFirestore.instance;
+
+
   final item1 = ["Half Day","Full Day"];
   final item2 = ["Medical", "Casual"];
   String? valueChoose1;
   String? valueChoose2;
 
-  TextEditingController Reason = TextEditingController();
+  TextEditingController reason = TextEditingController();
 
 
   @override
@@ -144,7 +146,7 @@ class _LeavePageState extends State<LeavePage> {
                 borderRadius: BorderRadius.circular(15),
               ),
               child: TextFormField(
-                controller: Reason,
+                controller: reason,
 
                 minLines: 2,
                 maxLines: 10,
@@ -177,22 +179,22 @@ class _LeavePageState extends State<LeavePage> {
                         child: Text("Leave Submit Successfull"),
                       );
                     });
-                FirebaseFirestore.instance.collection("visal").add({
-                  "Date":
+                FirebaseFirestore.instance.collection("request").add({
+                  "date":
                   "${_dateTime.day.toString()}:${_dateTime.month.toString()}:${_dateTime.year.toString()}",
 
-                  "Day Type":
+                  "day":
                   "${valueChoose1.toString()}",
-                  "Leave Type":
+                  "leave":
                   "${valueChoose2.toString()}",
-                  "Reason":
-                  "${Reason.text.toString()}",
+                  "reason":
+                  "${reason.text.toString()}",
 
                 });
 
                 print("${valueChoose1.toString()}"
                     "${valueChoose2.toString()}"
-                    "${Reason.text.toString()}"
+                    "${reason.text.toString()}"
                     );
 
               },
