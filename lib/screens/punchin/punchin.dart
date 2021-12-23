@@ -50,10 +50,10 @@ class _PunchPageState extends State<PunchPage> {
                       context: context,
                       builder: (BuildContext context) {
                         return Center(
-                          child: Text("Puch In Successfull"),
+                          child: Text("Punch In Successfull"),
                         );
                       });
-                  FirebaseFirestore.instance.collection("attendance").add({
+                  FirebaseFirestore.instance.collection("entering").add({
                     "time":
                         "${time!.hour.toString()}:${time!.minute.toString()}",
                     "date":
@@ -88,7 +88,7 @@ class _PunchPageState extends State<PunchPage> {
                           child: Text("Puch Out Successfull"),
                         );
                       });
-                  FirebaseFirestore.instance.collection("attendance").add({
+                  FirebaseFirestore.instance.collection("leaving").add({
                     "time":
                         "${time!.hour.toString()}:${time!.minute.toString()}",
                     "date":
